@@ -1,7 +1,10 @@
 import Note from './components/Note'
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 3fea5664f20e95966a8ee1ebd0bfbddc11a770fd
 const App = ({ notes }) => {
   return (
     <div>
