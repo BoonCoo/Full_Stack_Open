@@ -18,3 +18,5 @@ const Course = ({ course }) =>
   <Content parts={course.parts} />
   <Total sum={course.parts.map((part) => part.exercises).reduce((tally,a) => tally + a,0)} />
   </>
+
+export default Course
