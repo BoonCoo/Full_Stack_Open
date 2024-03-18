@@ -1,34 +1,7 @@
 import { useState } from 'react'
-
-const Filter = ({addFilter, newFilter, handleFilterChange}) => {
-  return (
-    <form onSubmit={addFilter}>
-      <div> filter shown with <input id='filter' autoComplete='on' value={newFilter} onChange={handleFilterChange}/> </div>
-    </form>
-  )
-}
-
-const PersonForm = ({addName, newName, newNumber, handleNameChange, handleNumberChange}) => {
-  return (
-    <form onSubmit={addName}>
-      <div> name: <input id='name' autoComplete='on' value={newName} onChange={handleNameChange}/> </div>
-      <div> number: <input id='number' autoComplete='on' value={newNumber} onChange={handleNumberChange}/> </div>
-      <div> <button type="submit">add</button> </div>
-    </form>
-  )
-}
-const Persons = ({filteredpersons}) => {
-  return (
-    <ul>
-      {filteredpersons.map(person => 
-        <li key = {person.id}>
-          {person.name} {person.number}
-        </li>
-      )}
-    </ul>
-  )
-}
-
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
 
 
 const App = () => {
