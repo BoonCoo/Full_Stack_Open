@@ -1,5 +1,36 @@
 import { useState } from 'react'
 
+const Filter = ({addFilter, newFilter, handleFilterChange}) => {
+  return (
+    <form onSubmit={addFilter}>
+      <div> filter shown with <input id='filter' autoComplete='on' value={newFilter} onChange={handleFilterChange}/> </div>
+    </form>
+  )
+}
+
+const PersonForm = ({addName, newName, newNumber, handleNameChange, handleNumberChange}) => {
+  return (
+    <form onSubmit={addName}>
+      <div> name: <input id='name' autoComplete='on' value={newName} onChange={handleNameChange}/> </div>
+      <div> number: <input id='number' autoComplete='on' value={newNumber} onChange={handleNumberChange}/> </div>
+      <div> <button type="submit">add</button> </div>
+    </form>
+  )
+}
+const Persons = ({filteredpersons}) => {
+  return (
+    <ul>
+      {filteredpersons.map(person => 
+        <li key = {person.id}>
+          {person.name} {person.number}
+        </li>
+      )}
+    </ul>
+  )
+}
+
+
+
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '040-123456', id: 1 },
@@ -10,17 +41,8 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
-  // const [newList, setNewList] = useState('')
-
-  const addFilter = (event) => {
-    event.preventDefault()
-    // const list = result.filter((name) => name.toLowerCase().includes(newFilter.toLowerCase()))
-    setNewFilter('')
-    // setNewList(persons.map(person => person.name).filter((name) => name.toLowerCase().includes(newFilter.toLowerCase())))
-  }
 
   const filteredpersons = persons.filter((person) => person.name.toLowerCase().includes(newFilter.toLowerCase()))
-  console.log(filteredpersons)
 
   const addName = (event) => {
     event.preventDefault()
@@ -42,7 +64,11 @@ const App = () => {
   const handleFilterChange = (event) => {
     console.log(event.target.value)
     setNewFilter(event.target.value)
-    // console.log(newFilter)
+  }
+
+  const addFilter = (event) => {
+    event.preventDefault()
+    event.setNewFilter('')
   }
 
   const handleNameChange = (event) => {
@@ -58,23 +84,11 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit={addFilter}>
-        <div> filter shown with <input id='filter' autoComplete='on' value={newFilter} onChange={handleFilterChange}/> </div>
-      </form>
-      <h2>add a new</h2>
-      <form onSubmit={addName}>
-        <div> name: <input id='name' autoComplete='on' value={newName} onChange={handleNameChange}/> </div>
-        <div> number: <input id='number' autoComplete='on' value={newNumber} onChange={handleNumberChange}/> </div>
-        <div> <button type="submit">add</button> </div>
-      </form>
-      <h2>Numbers</h2>
-      <ul>
-        {filteredpersons.map(person => 
-          <li key = {person.id}>
-            {person.name} {person.number}
-          </li>
-        )}
-      </ul>
+      <Filter addFilter={addFilter} newFilter={newFilter} handleFilterChange={handleFilterChange}/>
+      <h2>Add a new</h2>
+      <PersonForm addName={addName} newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange}/>
+      <h3>Numbers</h3>
+      <Persons filteredpersons={filteredpersons}/>
     </div>
   )
 }
